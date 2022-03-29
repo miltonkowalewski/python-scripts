@@ -22,11 +22,10 @@ print(messages[0])
 
 class ApportionmentObject:
 
-    data: list = []
-
     def __init__(self, current_quantity, ref) -> None:
         self.current_quantity = current_quantity
         self.ref = ref
+        self.data = []
 
 class Apportionment:
     def __calc_load(self, score, value_division, amount_of_data):
