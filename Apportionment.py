@@ -6,13 +6,14 @@ def getQueues():
     return [
         {
             "name": f"queue-{uuid.uuid4()}",
-            "messages": random.randrange(start=0, stop=100)
+            "messages": random.randrange(start=0, stop=100),
+            "asdasd": "asdsad"
         }
-        for i in range(10)
+        for i in range(random.randrange(start=10, stop=15))
     ]
 
 def getMessages():
-    return [f"message-{i}" for i in range(1000000)]
+    return [f"message-{i}" for i in range(3)]
 
 queues = getQueues()
 messages = getMessages()
@@ -29,7 +30,8 @@ class ApportionmentObject:
 
 class Apportionment:
     def __calc_load(self, score, value_division, amount_of_data):
-        return round((score / value_division if value_division else 1) * amount_of_data)
+        value = round((score / value_division if value_division else 1) * amount_of_data)
+        return value if value else 1
 
     def score_adjustment(self, list_of_numbers: list):
         if 0 in list_of_numbers:
@@ -49,10 +51,10 @@ class Apportionment:
             cached_position = quantity_to_load+cached_position
         return apportionments
 
-charge = Apportionment().load(
-    [ApportionmentObject(current_quantity=queue["messages"], ref=queue["name"]) for queue in queues], 
-    messages
-)
+print(len(messages))
+charge = Apportionment().load([ApportionmentObject(queue["messages"], queue["name"]) for queue in queues], messages, False)
 
 for c in charge:
     print(f"Apportionment quantity: {len(c.data)} - Queue: {c.ref} - Current Quantity:{c.current_quantity}")
+
+print()
