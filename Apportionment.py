@@ -49,7 +49,10 @@ class Apportionment:
             cached_position = quantity_to_load+cached_position
         return apportionments
 
-charge = Apportionment().load([ApportionmentObject(queue["messages"], queue["name"]) for queue in queues], messages)
+charge = Apportionment().load(
+    [ApportionmentObject(current_quantity=queue["messages"], ref=queue["name"]) for queue in queues], 
+    messages
+)
 
 for c in charge:
     print(f"Apportionment quantity: {len(c.data)} - Queue: {c.ref} - Current Quantity:{c.current_quantity}")
