@@ -40,10 +40,10 @@ class Apportionment:
             return list_of_numbers
 
     def load(self, apportionments: List[ApportionmentObject], data: list, reverse: bool = True):
-        amount_of_data = len(data) # 4532
+        amount_of_data = len(data)
         apportionments.sort(key=lambda x: x.current_quantity, reverse=reverse)
         scores = self.score_adjustment([apportionment.current_quantity for apportionment in apportionments])
-        value_division = sum(scores) # 322
+        value_division = sum(scores)
         cached_position = 0
         for index, score in enumerate(scores[::-1]):
             quantity_to_load = self.__calc_load(score, value_division, amount_of_data)
